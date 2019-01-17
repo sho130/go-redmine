@@ -22,10 +22,11 @@ type issueCategoryRequest struct {
 }
 
 type IssueCategory struct {
-	Id         int    `json:"id"`
-	Project    IdName `json:"project"`
-	Name       string `json:"name"`
-	AssignedTo IdName `json:"assigned_to"`
+	Id           int    `json:"id"`
+	Project      IdName `json:"project"`
+	Name         string `json:"name"`
+	AssignedTo   IdName `json:"assigned_to"`
+	AssignedToId int    `json:"assigned_to_id"`
 }
 
 func (c *Client) IssueCategories(projectId int) ([]IssueCategory, error) {
