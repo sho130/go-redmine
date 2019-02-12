@@ -58,7 +58,7 @@ type Issue struct {
 	AssignedToId   int            `json:"assigned_to_id"`
 	AssignedTo     *IdName        `json:"assigned_to"`
 	Category       *IdName        `json:"category"`
-	CategoryId     int            `json:"category_id"`
+	CategoryId     int            `json:"category_id,omitempty"`
 	Notes          string         `json:"notes"`
 	StatusDate     string         `json:"status_date"`
 	CreatedOn      string         `json:"created_on"`
