@@ -52,6 +52,30 @@ func (c *Client) Users() ([]User, error) {
 	return r.Users, nil
 }
 
+func (c *Client) LockedUsers() ([]User, error) {
+	res, err := c.Get(c.endpoint + "/users.json?key=" + c.apikey + c.getPaginationClause() + "&status=3")
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	decoder := json.NewDecoder(res.Body)
+	var r usersResult
+	if res.StatusCode != 200 {
+		var er errorsResult
+		err = decoder.Decode(&er)
+		if err == nil {
+			err = errors.New(strings.Join(er.Errors, "\n"))
+		}
+	} else {
+		err = decoder.Decode(&r)
+	}
+	if err != nil {
+		return nil, err
+	}
+	return r.Users, nil
+}
+
 func (c *Client) User(id int) (*User, error) {
 	res, err := c.Get(c.endpoint + "/users/" + strconv.Itoa(id) + ".json?key=" + c.apikey)
 	if err != nil {
